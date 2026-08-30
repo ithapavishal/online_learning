@@ -1,0 +1,71 @@
+<!-- templates/cart/view_cart.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col mt-4">
+            <p class="text-center fs-3 fw-bold">
+                Total number of Cart Items: {{ items|length }}
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Cart ID</th>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    {% if items %}
+
+
+
+                    {% for item in items %}
+
+
+                    <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.course.course_title }}</td>
+                        <td>{{ item.course.price }}</td>
+                        <td>
+                            {% if item.is_paid %}
+                            <p>Paid</p>
+                            {% else %}
+                            Not Paid
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.is_paid %}
+                            <a href="#" type="submit" class="btn btn-success disabled" style="width: 100%;">Pay
+                                with
+                                Khalti</a>
+
+                            {% else %}
+                            <a href="{% url 'payement_form' item.id %}" type="submit" class="btn btn-success"
+                                style="width: 100%;">Pay with
+                                Khalti</a>
+                            {% endif %}
+
+                            <a href="{% url 'remove_from_cart' item.id %}" style="width: 100%;"
+                                class="btn btn-danger mt-2">Remove</a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Your cart is empty.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

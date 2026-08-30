@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<!-- block css -->
+
+{% block css %}
+
+{% endblock %}
+
+<!-- content -->
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="form__container mt-4">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit" class="btn btn-primary mt-4 mb-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

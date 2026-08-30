@@ -1,0 +1,87 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block maincontent %}
+
+
+
+<div class="container mt-4 mb-4">
+    <h4 class="mx-2 my-4">Hi, {{ request.user.first_name }}</h4>
+    <div class="card mx-2 p-4">
+        <div class="row">
+            <div class="col-lg-5 d-flex justify-content-md-center flex-column align-items-center">
+                <div class="profile_img" style="width: 120px;height: 120px; border-radius: 50%; margin-bottom: 20px;">
+
+
+                    {% if request.user.student_profile %}
+                    <img src="{{ request.user.student_profile.profile_img.url }}" class="img-fluid">
+                    {% else %}
+
+                    <img src="{% static 'images/profile_img.png' %}" class="img-fluid">
+                    {% endif %}
+
+                </div>
+
+                <h3> {{ request.user.username }}</h3>
+                <p>Rank</p>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card text-white bg-primary mb-3" style="width: 100%;">
+                            <div class="card-header" style="min-height: 100px;">
+                                <h6 class="card-title text-center">Overall Question Attempts</h6>
+                            </div>
+                            <div class="card-body">
+
+                                <p class="card-text text-center" style="font-size: 4rem;">{{ total_questions }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="card text-white bg-secondary mb-3" style="width: 100%;">
+                            <div class="card-header" style="min-height: 100px;">
+                                <h6 class="card-title text-center">Total Score</h6>
+                            </div>
+                            <div class="card-body">
+
+                                <p class="card-text text-center" style="font-size: 4rem;">{{ total_score }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+
+    {% for stu in student_progress %}
+    <div class="card m-2 p-2">
+        <div class="row">
+            <div class="col m-2">
+                <p class="text-bold">{{ stu.question }}</p>
+                <p>{{ stu.question.correct_answer.answer_text }}</p>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+    integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+{% endblock %}

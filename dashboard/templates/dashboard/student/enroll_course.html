@@ -1,0 +1,115 @@
+{% extends 'dashboard.html' %}
+
+
+
+{% block maincontent %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card mx-4">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h6>Enroll Courses</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Image
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Course
+                                    Name
+                                </th>
+
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Enroll Student
+                                </th>
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Enrollment Date
+                                </th>
+
+
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Take Quiz
+                                </th>
+
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Go to Study Pannel
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            {% for enroll in enroll_courses %}
+
+                            {% if enroll.payment.student.username == request.user.username %}
+
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div>
+                                            <img src="{{ enroll.course.course_image.url }}"
+                                                class="avatar avatar-sm me-3" alt="courses image">
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <a href="{% url 'study_pannel' enroll.course.id %}">
+                                            <h6 class="mb-0 text-sm" style="cursor: pointer;">
+                                                {{ enroll.course.course_title }}
+
+                                            </h6>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <!-- user -->
+                                <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> {{ enroll.payment.student.username }}
+                                    </span>
+                                </td>
+
+                                <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> {{ enroll.enroll_at }}
+                                    </span>
+                                </td>
+
+                                <!-- quiz -->
+                                <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold">
+                                        <a href="{% url 'show_quiz' enroll.course.id %}" class="btn btn-outline-dark">
+                                            Take quiz
+                                        </a>
+                                    </span>
+                                </td>
+
+                                <!-- Study pannel -->
+                                <td class="align-middle text-center text-sm">
+                                    <a href="{% url 'study_pannel' enroll.course.id %}"
+                                        class="btn btn-outline-dark">Watch</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock maincontent %}

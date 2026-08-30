@@ -1,0 +1,85 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* tab bar start */
+.tab {
+    width: 100%;
+    overflow: hidden;
+}
+
+.tab button {
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.tab button:hover {
+    background-color: skyblue;
+    color: black;
+}
+
+.tab button.active {
+    background-color: white;
+    color: red;
+}
+
+
+.tabcontent {
+    background-color: white;
+    width: 100%;
+    padding: 12px;
+    line-height: 21px;
+    display: block;
+}
+
+/* tab bar end */
+
+
+.search_bar_div {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    display: inline-flex;
+    align-items: center;
+}
+
+.search_bar_icon {
+    padding: 10px;
+}
+
+.search_bar {
+    outline: none;
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 250px;
+}
+
+.search_bar:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: transparent;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    opacity: 0.5;
+}

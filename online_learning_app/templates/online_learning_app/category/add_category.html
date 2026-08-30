@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form__container mt-4">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{cate_form.as_p}}
+                    <input type="submit" name="" id="" value="submit" class="btn btn-primary mt-4 mb-4">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!-- content -->
+
+{% block content %}
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex justify-content-center align-items-center" style="min-height: 50vh ;">
+      <div class="form__container mt-4">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="submit" class="btn btn-primary mt-4 mb-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,196 @@
+{% extends 'dashboard.html' %}
+
+
+{% block title %}
+teacher dashboard
+{% endblock %}
+
+
+{% block css %}
+<style>
+
+</style>
+
+{% endblock css %}
+
+{% block maincontent %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <!-- welcome message -->
+  <div class="container-fluid py-4">
+    <div class="row">
+
+      <div class="col">
+        <div class="text pt-1 welcome_msg heading">
+          <p class="mb-0 text-capitalize" style="font-size: 2rem !important;"> Hi, {{request.user.first_name}}</p>
+          <h4 class="text-sm mb-0" style="font-size: 1.5rem !important;">Welcome to Dashboard</h>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- content -->
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div
+              class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">weekend</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Today's Money</p>
+              <h4 class="mb-0">$53k</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div
+              class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+              <h4 class="mb-0">2,300</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div
+              class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">New Clients</p>
+              <h4 class="mb-0">3,462</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div
+              class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">weekend</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Sales</p>
+              <h4 class="mb-0">$103,430</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- course -->
+    <div class="row mb-4 mt-4">
+      <div class="col-12 mb-md-0 mb-4">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h6>Top Courses</h6>
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Enroll Student
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  {% for course in courses %}
+                  {% if course.created_by == request.user %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{ course.course_image.url }}" class="avatar avatar-sm me-3" alt="courses image">
+                        </div>
+
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column justify-content-center">
+                        <a href="{% url 'courses_dashboard' %}">
+                          <h6 class="mb-0 text-sm" style="cursor: pointer;">{{ course.course_title }}</h6>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+
+
+                      <div class="avatar-group mt-2">
+
+
+
+
+                        {% for enroll in enroll_students %}
+                        {% if course.id == enroll.course.id %}
+
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
+                          data-bs-placement="bottom" title="Ryan Tompson">
+                          <img src="/static/assets/img/team-1.jpg" alt="team1">
+                        </a>
+                        <p>{{ enroll.payment.student|truncatechars:2 }}</p>
+
+                        {% endif %}
+
+                        {% endfor %}
+
+
+                        <!-- price -->
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> $ {{ course.price }} </span>
+                    </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock maincontent %}

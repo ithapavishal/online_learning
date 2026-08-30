@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  .checked {
+    color: gold;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col bg-black p-4">
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <div class="card" style="width: 100%; padding: 10px;">
+            <img src="{{ course.course_image.url }}" class="card-img-top img-fluid" style=" object-fit: contain;"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">${{ course.price }}</h5>
+
+
+              {% if request.user == course.created_by %}
+
+              <a href="{% url 'study_pannel' course.id %}" class="btn"
+                style="background-color: purple; width: 100%; color: white;">Watch Your Course </a>
+
+              {% elif request.user.username == enrollment.payment.student.username %}
+              <a href="{% url 'study_pannel' course.id %}" class="btn"
+                style="background-color: purple; width: 100%; color: white;">Watch Your Course </a>
+
+              {% else %}
+              <a href="{% url 'add_to_cart' course.id %}" class="btn btn-primary mt-2" style="width: 100%;">Add to
+                Cart</a>
+              <a href="#" class="btn btn-primary mt-2" style="width: 100%;">Buy now</a>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-12 mt-4">
+          <h1 class="text-white">{{ course.course_title }}</h1>
+          <p class="text-white">{{ course.course_desc }}</p>
+          <p class="text-white">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </p>
+
+          <p class="text-white">Category: {{ course.category }}</p>
+          <p class="text-white">Created By: {{ course.created_by }}</p>
+          <p class="text-white">Created at:</p>
+          <p class="text-white">Updated at:</p>
+          <p class="text-white">This course include</p>
+          <ul class="text-white">
+            <li>Proper Course Syllbus</li>
+            <li>120 hours video Content</li>
+            <li>Pdf</li>
+            <li>Quiz</li>
+            <li>Discussion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

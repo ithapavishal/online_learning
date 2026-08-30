@@ -1,0 +1,164 @@
+{% extends 'dashboard.html' %}
+
+<!-- title -->
+
+{% block title %}
+course
+{% endblock %}
+
+<!-- css -->
+{% block css %}
+<style>
+  .equal-width-button {
+    width: 120px;
+    display: inline-block;
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block maincontent %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+  <!-- category contaner -->
+  <div class="container-fluid py-1">
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'add_category' %}" class="btn btn-primary">
+          <h6 class="text-white text-capitalize">Add Category</h6>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-1">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Category Table</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">S.N</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for category in category %}
+                  {% if category.created_by == request.user %}
+                  <tr>
+                    <td style="padding: 20px;">{{ category.id }}</td>
+                    <td>{{ category.cate_title }}</td>
+                    <td>
+                      <a href="{% url 'update_category' category.id %}" class="btn btn-primary">Update</a>
+                      <a href="{% url 'delete_category' category.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Course -->
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'add_course' %}" class="btn btn-primary">Add Course</a>
+      </div>
+    </div>
+
+    <!-- Courses-->
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Course Table</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center justify-content-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course Image</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description
+                    </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                      Price</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {% for course in courses %}
+
+                  {% if course.created_by == request.user %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img style="width: 40px; height: 40px; object-fit: contian;"
+                            src="{{ course.course_image.url }}" alt="image is not avaiable" />
+                        </div>
+
+                      </div>
+                    </td>
+                    <td>
+                      <div class="my-auto">
+                        <a href="{% url 'course_details' course.id %}">
+                          <h6 class="mb-0 text-sm">{{ course.course_title }}</h6>
+                          <h6 class="mb-0 text-sm">{{ course.created_by }}</h6>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-xs font-weight-bold">{{ course.course_desc|truncatechars:20 }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <span class="me-2 text-xs font-weight-bold">{{ course.category }}</span>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <span class="me-2 text-xs font-weight-bold">{{ course.price }}</span>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+
+                      <a href="{% url 'update_course' course.id %}" class="btn btn-primary">Update</a>
+                      <a href="{% url 'delete_course' course.id %}" class="btn btn-danger">Delete</a>
+
+                    </td>
+                  </tr>
+
+                  {% endif %}
+
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+{% endblock %}

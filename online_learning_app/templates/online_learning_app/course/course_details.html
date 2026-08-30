@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+<!-- load static -->
+
+{% load static %}
+
+<!-- css -->
+
+{% block css %}
+<style>
+  .row {
+    margin: 20px 10px;
+    border-radius: 10px;
+    padding: 20px 0px;
+  }
+</style>
+{% endblock %}
+
+<!-- content -->
+
+{% block content %}
+<!-- Course Content Details -->
+
+<div class="contaner-fluid">
+  <div class="row">
+    {% for course in course %}
+    <div class="col-12">
+      <div class="card mb-4" style="width:100%">
+        <div class="row g-0">
+          <div class="col-12 col-sm-4">
+            <img src="{{ course.course_image.url }}"
+              class="img-fluid rounded-start d-flex justify-content-center align-items-center" alt="No image"
+              style="width: 100%;height: 50vh;" />
+          </div>
+          <div class="col-12 col-sm-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ course.course_title }}</h5>
+              <p class="card-text">{{ course.course_desc }}</p>
+              <p class="card-text">Category: {{ course.category }}</p>
+              <p class="card-text">Price: {{ course.price }}</p>
+
+              <button class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- For Additional Content -->
+<div class="container-fluid">
+  <!-- video -->
+
+  <div class="card mt-4">
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'add_video' %}" style="text-decoration: none;" class="btn btn-primary">Add Video</a>
+      </div>
+      <div class="col-12 mt-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Course</th>
+              <th scope="col">Title</th>
+              <th scope="col">Video file</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for video in course_videos %}
+            <tr>
+              <th scope="row">{{ video.id }}</th>
+              <td>{{ video.course }}</td>
+              <td>{{ video.title }}</td>
+              <td>{{ video.video_file }}</td>
+              <td>
+                <a class="btn btn-primary" href="{% url 'update_video' video.id %}">Update</a>
+                <a class="btn btn-danger mt-2" href="{% url 'delete_video' video.id %}">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- Course Pdf Files -->
+  <div class="card mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h2><a href="{% url 'add_course_pdf' %}" class="btn btn-primary mb-2">Add Course Pdf</a> </h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Pdf Title</th>
+              <th scope="col">Pdf Description</th>
+              <th scope="col">Pdf Files</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for pdf in course_pdf %}
+            <tr>
+              <td>{{ pdf.id }}</td>
+              <td>{{ pdf.title }}</td>
+              <td>{{ pdf.pdf_file }}</td>
+              <td>{{ pdf.pdf_des|truncatewords:10 }}</td>
+              <td>
+                <a href="{% url 'update_course_pdf' pdf.id %}" class="btn btn-primary m-2">Edit</a>
+                <a href="{% url 'delete_course_pdf' pdf.id %}" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- question container -->
+
+  <div class="card mt-4 mb-4">
+    <div class="row">
+      <div class="col-12">
+        <h2><a href="{% url 'create_quiz' specific_course.id %}" class="btn btn-primary mb-2">Add Quiz</a> </h2>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Quiz Title</th>
+              <th>Quiz Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for quiz in course_quiz %}
+            <tr>
+              <td>{{ quiz.id }}</td>
+              <td>{{ quiz.title }}</td>
+              <td>{{ quiz.description|truncatewords:10 }}</td>
+              <td>
+                <a href="{% url 'create_question' quiz.id %}" class="btn btn-outline-info m-2">Add Content</a>
+                <a href="{% url 'update_quiz' quiz.id %}" class="btn btn-outline-primary m-2">Edit</a>
+                <a href="{% url 'detele_quiz' quiz.id %}" class="btn btn-outline-danger">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

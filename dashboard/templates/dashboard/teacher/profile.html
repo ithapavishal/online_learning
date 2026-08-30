@@ -1,0 +1,78 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block maincontent %}
+
+<div class="main-content position-relative max-height-vh-100 h-100">
+
+  <div class="container-fluid px-2 px-md-4">
+    <div class="page-header min-height-300 border-radius-xl mt-4"
+      style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+      <span class="mask  bg-gradient-primary  opacity-6"></span>
+    </div>
+    <div class="card card-body mx-3 mx-md-4 mt-n6">
+      <div class="row gx-4 mb-2">
+
+        <div class="col-auto">
+          <div class="avatar avatar-xl position-relative ">
+
+            {% if request.user.teacherprofile %}
+            <img src="{{ request.user.teacherprofile.profile_img.url }}" alt="profile_image"
+              class="w-100 border-radius-lg shadow-sm p-3">
+            {% else %}
+            <img src="{% static 'images/profile_img.png' %}" alt="profile_image"
+              class="w-100 border-radius-lg shadow-sm p-3">
+            {% endif %}
+
+
+          </div>
+        </div>
+        <div class="col-8 my-auto">
+          <div class="h-100">
+            <h5 class="mb-1">
+              {{ request.user.first_name }}
+            </h5>
+            <p class="mb-0 font-weight-normal text-sm">
+              {{ request.user.username }}
+            </p>
+          </div>
+        </div>
+        <div class="col-2 d-flex justify-content-end align-items-center">
+          <a href="{% url 'update_teacher_profile' request.user.id %}" class="btn btn-primary">Update Your Profile</a>
+        </div>
+
+        <!-- Body  -->
+        <div class="col-12">
+          <p class="mb-0 font-weight-normal text-xl pt-4 pb-4">
+            {{ request.user.teacherprofile.bio }}
+          </p>
+        </div>
+
+        <div class="col-12">
+          <p class="mb-0 font-weight-normal text-sm">
+          <h6>Mail:</h6> {{ request.user.email }}
+          </p>
+        </div>
+
+
+        <div class="col-12">
+          <p class="mb-0 font-weight-normal text-sm">
+          <h6>Address:</h6> {{ request.user.teacherprofile.address }}
+          </p>
+        </div>
+
+        <div class="col-12">
+          <p class="mb-0 font-weight-normal text-sm">
+          <h6>Phone No:</h6> {{ request.user.teacherprofile.phone_number }}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock maincontent %}
